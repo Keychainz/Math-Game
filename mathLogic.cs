@@ -16,5 +16,36 @@ namespace MathGame
             Console.WriteLine("7. Change Difficulty");
             Console.WriteLine("8. Exit");
         }
+
+        public int MathOperations(int firstNum, int secondNum, char operation)
+        {
+            switch (operation)
+            {
+                case '+':
+                    gameHistoryList.Add($"{firstNum} + {secondNum} = {firstNum + secondNum}");
+                    return firstNum + secondNum;
+                case "-":
+                    gameHistoryList.Add($"{firstNum} - {secondNum} = {firstNum - secondNum}");
+                    return firstNum - secondNum;
+                case "*":
+                    gameHistoryList.Add($"{firstNum} * {secondNum} = {firstNum * secondNum}");
+                    return firstNum * secondNum;
+                case "/":
+                    while (firstNum < 0 || firstNum > 100)
+                    {
+                        try
+                        {
+                            Console.WriteLine("Please enter a number between 0 and 100");
+                            firstNum = Convert.ToInt32(Console.ReadLine());
+                        }
+                        catch (System.Execption)
+                        {
+                            // Do something here
+                        }
+                    }
+                    gameHistoryList.Add($"{firstNum} / {secondNum} = {firstNum / secondNum}");
+                    return firstNum / secondNum;
+            }
+        }
     }
 }
