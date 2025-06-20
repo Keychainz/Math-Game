@@ -10,4 +10,50 @@
 5. You don't need to record results on a database. Once the program is closed the results will be deleted.
 */
 
-Console.Write("Hello World");
+using MathGame;
+
+MathLogic mathGame = new MathLogic();
+Random random = new Random();
+
+int firstNum;
+int secondNum;
+int score = 0;
+int userMenuSelection;
+
+bool gameOver = false;
+
+
+
+static DifficultyLevel changeDifficulty()
+{
+    int userSelection = 0;
+
+    Console.WriteLine("Please enter a difficulty level");
+    Console.WriteLine("1. Easy");
+    Console.WriteLine("2. Medium");
+    Console.WriteLine("3. Hard");
+
+    while (!int.TryParse(Console.ReadLine(), out userSelection) || (userSelection < 0 || userSelection > 3))
+    {
+        Console.WriteLine("Please enter a valid value 1-3");
+    }
+
+    switch (userSelection)
+    {
+        case 1:
+            return DifficultyLevel.Easy;
+        case 2:
+            return DifficultyLevel.Medium;
+        case 3:
+            return DifficultyLevel.Hard;
+    }
+
+    return DifficultyLevel.Easy;
+}
+
+public enum DifficultyLevel
+{
+    Easy = 45,
+    Medium = 30,
+    Hard = 25,
+}

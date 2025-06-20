@@ -24,13 +24,13 @@ namespace MathGame
                 case '+':
                     gameHistoryList.Add($"{firstNum} + {secondNum} = {firstNum + secondNum}");
                     return firstNum + secondNum;
-                case "-":
+                case '-':
                     gameHistoryList.Add($"{firstNum} - {secondNum} = {firstNum - secondNum}");
                     return firstNum - secondNum;
-                case "*":
+                case '*':
                     gameHistoryList.Add($"{firstNum} * {secondNum} = {firstNum * secondNum}");
                     return firstNum * secondNum;
-                case "/":
+                case '/':
                     while (firstNum < 0 || firstNum > 100)
                     {
                         try
@@ -38,7 +38,7 @@ namespace MathGame
                             Console.WriteLine("Please enter a number between 0 and 100");
                             firstNum = Convert.ToInt32(Console.ReadLine());
                         }
-                        catch (System.Execption)
+                        catch (System.Exception)
                         {
                             // Do something here
                         }
@@ -46,6 +46,7 @@ namespace MathGame
                     gameHistoryList.Add($"{firstNum} / {secondNum} = {firstNum / secondNum}");
                     return firstNum / secondNum;
             }
+            return 0;
         }
     }
 }
