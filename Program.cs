@@ -51,6 +51,25 @@ static DifficultyLevel changeDifficulty()
     return DifficultyLevel.Easy;
 }
 
+static void DisplayMathGameQuestion(int firstNum, int secondNum, char operation)
+{
+    Console.WriteLine($"{firstNum} {operation} {secondNum} = ??");
+}
+
+static int GetUserMenuSelection(MathLogic mathGame)
+{
+    int selection = -1;
+    mathGame.ShowMenu();
+    while (selection < 1 || selection > 8)
+    {
+        while (!int.TryParse(Console.ReadLine(), out selection))
+        {
+            Console.WriteLine("Please enter a valid option 1-8");
+        }
+    }
+    return selection;
+}
+
 public enum DifficultyLevel
 {
     Easy = 45,
