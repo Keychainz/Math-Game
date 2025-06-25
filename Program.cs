@@ -10,6 +10,7 @@
 5. You don't need to record results on a database. Once the program is closed the results will be deleted.
 */
 
+using System.Diagnostics;
 using MathGame;
 
 MathLogic mathGame = new MathLogic();
@@ -22,6 +23,20 @@ int userMenuSelection;
 
 bool gameOver = false;
 
+DifficultyLevel difficultyLevel = DifficultyLevel.Easy;
+
+while (!gameOver)
+{
+    userMenuSelection = GetUserMenuSelection(mathGame);
+
+    firstNum = random.Next(1, 101);
+    secondNum = random.Next(1, 101);
+
+    switch (userMenuSelection)
+    {
+        
+    }
+}
 
 
 static DifficultyLevel changeDifficulty()
@@ -70,6 +85,69 @@ static int GetUserMenuSelection(MathLogic mathGame)
     return selection;
 }
 
+static async Task<int?> GetUserResponse(DifficultyLevel difficulty)
+{
+    int response = 0;
+    int timeout = (int)difficulty;
+
+    Stopwatch stopwatch = new Stopwatch();
+    stopwatch.Start();
+
+    Task<string?> GetUserInputTask = Task.Run(() => Console.ReadLine());
+
+    try
+    {
+        string? result = await Task.WhenAny(GetUserInputTask, Task.Delay(timeout * 1000)) == GetUserInputTask ? GetUserInputTask.Result : null;
+
+        stopwatch.Stop();
+
+        if (result != null && int.TryParse(result, out response))
+        {
+            Console.WriteLine($"Time taken to answer: {stopwatch.Elapsed.ToString(@"m\::ss\.fff")}");
+            return response;
+        }
+        else
+        {
+            throw new OperationCanceledException();
+        }
+    }
+    catch (OperationCanceledException)
+    {
+        Console.WriteLine("Time is up!");
+        return null;
+    }
+}
+
+static int ValidateResponse(int result, int? userResponse, int score)
+{
+    if (result == userResponse)
+    {
+        Console.WriteLine("You answered correctly; You earned 5 points");
+        score += 5;
+    }
+    else
+    {
+        Console.WriteLine("Try again!");
+        Console.WriteLine($"Correct answer is: {result}");
+    }
+    return score;
+}
+
+static async Task<int> PerformOperation(MathLogic mathGame, int firstNum, int secondNum, int score, char operation, DifficultyLevel difficulty)
+{
+    int result;
+    int? userResponse = null;
+
+    DisplayMathGameQuestion(firstNum, secondNum, operation);
+
+    result = mathGame.MathOperations(firstNum, secondNum, operation);
+
+    userResponse = await GetUserResponse(difficulty);
+
+    score += ValidateResponse(result, userResponse, score);
+
+    return score;
+}
 public enum DifficultyLevel
 {
     Easy = 45,
