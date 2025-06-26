@@ -34,8 +34,69 @@ while (!gameOver)
 
     switch (userMenuSelection)
     {
-        
+        case 1:
+            score += await PerformOperation(mathGame, firstNum, secondNum, score, '+', difficultyLevel);
+            break;
+        case 2:
+            score += await PerformOperation(mathGame, firstNum, secondNum, score, '-', difficultyLevel);
+            break;
+        case 3:
+            score += await PerformOperation(mathGame, firstNum, secondNum, score, '*', difficultyLevel);
+            break;
+        case 4:
+            while (firstNum % secondNum != 0)
+            {
+                firstNum = random.Next(1, 101);
+                secondNum = random.Next(1, 101);
+            }
+            score += await PerformOperation(mathGame, firstNum, secondNum, score, '+', difficultyLevel);
+            break;
+        case 5:
+            int numberOfQuestions = 99;
+            Console.WriteLine("Please enter the number of questions you want to attempt");
+            while (!int.TryParse(Console.ReadLine(), out numberOfQuestions))
+            {
+                Console.WriteLine("Please enter the number of questions you want to attempt as an integer");
+            }
+
+            while (numberOfQuestions > 0)
+            {
+                int randomOperation = random.Next(1, 5);
+
+                if (randomOperation == 1)
+                {
+                    firstNum = random.Next(1, 101);
+                    secondNum = random.Next(1, 101);
+                    score += await PerformOperation(mathGame, firstNum, secondNum, score, '+', difficultyLevel);
+                }
+                else if (randomOperation == 2)
+                {
+                    firstNum = random.Next(1, 101);
+                    secondNum = random.Next(1, 101);
+                    score += await PerformOperation(mathGame, firstNum, secondNum, score, '-', difficultyLevel);
+                }
+                else if (randomOperation == 3)
+                {
+                    firstNum = random.Next(1, 101);
+                    secondNum = random.Next(1, 101);
+                    score += await PerformOperation(mathGame, firstNum, secondNum, score, '*', difficultyLevel);
+                }
+                else
+                {
+                    firstNum = random.Next(1, 101);
+                    secondNum = random.Next(1, 101);
+                    
+                    while (firstNum % secondNum != 0)
+                    {
+                        firstNum = random.Next(1, 101);
+                        secondNum = random.Next(1, 101);
+                    }
+                    score += await PerformOperation(mathGame, firstNum, secondNum, score, '+', difficultyLevel);
+                }
+            }
+            break;
     }
+    ;
 }
 
 
