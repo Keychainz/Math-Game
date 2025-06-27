@@ -85,7 +85,7 @@ while (!gameOver)
                 {
                     firstNum = random.Next(1, 101);
                     secondNum = random.Next(1, 101);
-                    
+
                     while (firstNum % secondNum != 0)
                     {
                         firstNum = random.Next(1, 101);
@@ -93,7 +93,25 @@ while (!gameOver)
                     }
                     score += await PerformOperation(mathGame, firstNum, secondNum, score, '+', difficultyLevel);
                 }
+                numberOfQuestions--;
             }
+            break;
+        case 6:
+            Console.WriteLine("GAME HISTORY: \n");
+            foreach (var operation in mathGame.gameHistoryList)
+            {
+                Console.WriteLine($"{operation}");
+            }
+            break;
+        case 7:
+            difficultyLevel = changeDifficulty();
+            DifficultyLevel difficultyEnum = (DifficultyLevel)difficultyLevel;
+            Enum.IsDefined(typeof(DifficultyLevel), difficultyEnum);
+            Console.WriteLine($"Your new dificulty level is {difficultyLevel}");
+            break;
+        case 8:
+            gameOver = true;
+            Console.WriteLine($"Your final score is: {score}");
             break;
     }
     ;
